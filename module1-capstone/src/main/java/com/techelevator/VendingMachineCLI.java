@@ -1,35 +1,76 @@
 package com.techelevator;
 
-import com.techelevator.view.Menu;
+import java.awt.List;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
-public class VendingMachineCLI {
+public class VendingMachineCLI extends VendingMachine {
 
-	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
-	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS,
-													   MAIN_MENU_OPTION_PURCHASE };
-	
-	private Menu menu;
-	
-	public VendingMachineCLI(Menu menu) {
-		this.menu = menu;
+
+	public void displayMainMenu() {
+		System.out.println("(1) Display Vending Machine Items");
+		System.out.println("(2) Purchase");
+		System.out.print("What would you like to do? ");
+
 	}
-	
-	public void run() {
-		while(true) {
-			String choice = (String)menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-			
-			if(choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// display vending machine items
-			} else if(choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// do purchase
+
+	public static void getItemsInStock() {	
+		System.out.print("\n");
+		for(Item item : itemsInStock) {
+			String format = "%-18s";
+			System.out.print(item.getItemNumber());
+			System.out.format(format, "\t" + item.getItemName());
+			System.out.print("\t" + item.getPrice());
+			if(item.getQuantity() == 0) {
+				System.out.format(format, "\tSOLD OUT\n");
+			} else {
+				System.out.format(format, "\tQuantity remaining: " + item.getQuantity() + "\n");
 			}
 		}
+		System.out.print("\n");
 	}
-	
-	public static void main(String[] args) {
-		Menu menu = new Menu(System.in, System.out);
-		VendingMachineCLI cli = new VendingMachineCLI(menu);
-		cli.run();
+
+	public void purchase() {
+		System.out.println("\n(1) Feed Money");
+		System.out.println("(2) Select Product");
+		System.out.println("(3) Finish Transaction");
+		System.out.println("Current Money Provided: $" + VendingMachine.getCurrentBalance());
+		System.out.print("\nWhat would you like to do? ");
 	}
+
+	public void askForMoney() {
+		System.out.print("How much money are you putting in? (X.XX) ");
+	}
+
+	public void askForProduct() {
+		System.out.print("Which item would you like to buy? ");
+	}
+
+	public void finishTransaction() {
+		Change transaction = new Change();
+		int[] numberOfCoins = transaction.getChange(currentBalance);
+		
+		System.out.print("Your change is: ");
+		if (numberOfCoins.length == 0) {
+			System.out.println("$0.00.");
+		} 
+		
+		if (numberOfCoins[0] > 0) {
+			System.out.print(numberOfCoins[0] + "Q ");
+		} 
+		
+		if (numberOfCoins[1] > 0) {
+			System.out.print(numberOfCoins[1] + "D ");
+		} 
+		
+		if (numberOfCoins[2] > 0) {
+			System.out.print(numberOfCoins[2] + "N ");
+		} 
+		
+		System.out.println("\n");
+		currentBalance = new BigDecimal("0.00");
+		
+		
+	}
+
 }
