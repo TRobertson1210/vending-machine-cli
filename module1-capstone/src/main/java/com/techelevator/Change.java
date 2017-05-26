@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Change extends VendingMachine {
+public class Change {
 	
 	private BigDecimal quarter = new BigDecimal("0.25");
 	private BigDecimal dime = new BigDecimal("0.10");
 	private BigDecimal nickel = new BigDecimal("0.05");
-	public int[] numberOfCoins = new int[] {};
 	
 	public int[] getChange(BigDecimal currentBalance) {
 		int numberOfQuarters = 0;

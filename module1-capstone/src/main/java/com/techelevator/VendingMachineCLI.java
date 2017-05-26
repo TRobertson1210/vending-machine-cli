@@ -1,6 +1,5 @@
 package com.techelevator;
 
-import java.awt.List;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class VendingMachineCLI extends VendingMachine {
 			System.out.format(format, "\t" + item.getItemName());
 			System.out.print("\t" + item.getPrice());
 			if(item.getQuantity() == 0) {
-				System.out.format(format, "\tSOLD OUT\n");
+				System.out.format("%-10s", "\tSOLD OUT\n");
 			} else {
 				System.out.format(format, "\tQuantity remaining: " + item.getQuantity() + "\n");
 			}
@@ -68,7 +67,14 @@ public class VendingMachineCLI extends VendingMachine {
 		} 
 		
 		System.out.println("\n");
+		previousBalance = currentBalance;
 		currentBalance = new BigDecimal("0.00");
+		log.printActionLog("GIVE CHANGE: ", previousBalance, currentBalance);
+		for(Item element : purchasedItems) {
+			System.out.println(element.consumeItem());
+		}
+		System.out.println();
+		purchasedItems.clear();
 		
 		
 	}
