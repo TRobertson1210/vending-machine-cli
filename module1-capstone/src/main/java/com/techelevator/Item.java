@@ -34,5 +34,9 @@ public abstract class Item {
 	public int getQuantity() {
 		return quantity;
 	}
+	
+	public void setQuantity(int quantity) {  //Only used for testing.
+		this.quantity = quantity;
+	}
 
 }

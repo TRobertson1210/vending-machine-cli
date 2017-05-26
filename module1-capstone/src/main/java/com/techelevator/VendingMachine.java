@@ -5,20 +5,21 @@ import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachine {
 
-	protected static BigDecimal currentBalance = new BigDecimal("0.00");
-	protected static BigDecimal previousBalance = new BigDecimal("0.00");
+	public static BigDecimal currentBalance = new BigDecimal("0.00");
+	public static BigDecimal previousBalance = new BigDecimal("0.00");
 	public static List<Item> itemsInStock = new ArrayList<>();
 	public Map<String, Item> itemMap = new HashMap<>();
-	protected BigDecimal billProvided;
-	protected boolean isOn = false;
-	protected static List<Item> purchasedItems = new ArrayList<Item>();
-	protected static Log log = new Log();
+	public BigDecimal billProvided;
+	public boolean isOn = false;
+	public static List<Item> purchasedItems = new ArrayList<Item>();
+	public static Log log = new Log();
 
 
 	@SuppressWarnings("resource")
@@ -64,7 +65,8 @@ public class VendingMachine {
 		} else {
 			System.out.println("Please insert a valid bill. (1.00, 2.00, 5.00, 10.00)");
 		}
-		
+
+
 	}
 
 	public void getItem(String itemNumber) {
@@ -88,11 +90,12 @@ public class VendingMachine {
 		return isOn;
 	}
 
-	public static BigDecimal getCurrentBalance() {
+
+	public BigDecimal getCurrentBalance() {
 		return currentBalance;
 	}
 
-	public void setCurrentBalance(BigDecimal currentBalance) {
+	public void setCurrentBalance(BigDecimal currentBalance) {  //Only used for testing.
 		this.currentBalance = currentBalance;
 	}
 
@@ -100,8 +103,22 @@ public class VendingMachine {
 		return previousBalance;
 	}
 
+	public List<Item> getItemsInStock() {
+		return itemsInStock;
+	}
+
+	public List<Item> getPurchasedItems() {
+		return purchasedItems;
+	}
 
 
+	public Map<String, Item> getItemMap() {
+		return itemMap;
+	}
+
+	public void setPreviousBalance(BigDecimal currentBalance) {
+		previousBalance = currentBalance;
+	}
 
 
 
