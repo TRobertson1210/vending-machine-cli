@@ -58,14 +58,13 @@ public class VendingMachine {
 
 
 	public void feedMoney(BigDecimal billProvided) {
-		if(billProvided.compareTo(new BigDecimal(1.00)) == 0 || billProvided.compareTo(new BigDecimal(2.00)) == 0 || billProvided.compareTo(new BigDecimal(5.00)) == 0 || billProvided.compareTo(new BigDecimal(10.00)) == 0) {
+		if(billProvided.compareTo(new BigDecimal("1.00")) == 0 || billProvided.compareTo(new BigDecimal("2.00")) == 0 || billProvided.compareTo(new BigDecimal("5.00")) == 0 || billProvided.compareTo(new BigDecimal("10.00")) == 0) {
 			previousBalance = currentBalance;
 			currentBalance = currentBalance.add(billProvided);
 			log.printActionLog("FEED MONEY: ", previousBalance, currentBalance);
 		} else {
 			System.out.println("Please insert a valid bill. (1.00, 2.00, 5.00, 10.00)");
 		}
-
 
 	}
 
