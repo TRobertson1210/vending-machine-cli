@@ -60,7 +60,7 @@ public class VendingMachine {
 	public void feedMoney(BigDecimal billProvided) {
 		if(billProvided.compareTo(new BigDecimal("1.00")) == 0 || billProvided.compareTo(new BigDecimal("2.00")) == 0 || billProvided.compareTo(new BigDecimal("5.00")) == 0 || billProvided.compareTo(new BigDecimal("10.00")) == 0) {
 			previousBalance = currentBalance;
-			currentBalance = currentBalance.add(billProvided);
+			currentBalance = currentBalance.add(billProvided).setScale(2);
 			log.printActionLog("FEED MONEY: ", previousBalance, currentBalance);
 		} else {
 			System.out.println("Please insert a valid bill. (1.00, 2.00, 5.00, 10.00)");
@@ -68,12 +68,13 @@ public class VendingMachine {
 
 	}
 
-	public void getItem(String itemNumber) {
+	public void getItem(String itemNumber) throws ItemNotFoundException {
+		itemNumber = itemNumber.toUpperCase();
 		if (!itemMap.containsKey(itemNumber)) {
-			System.out.println("We don't stock that item.");
+			throw new ItemNotFoundException("We don't stock that item.");
 		} else if (itemMap.get(itemNumber).getQuantity() == 0) {
 			System.out.println("That item is sold out!");
-		} else if (currentBalance.compareTo(itemMap.get(itemNumber).getPrice()) == -1) {
+		} else if (currentBalance.compareTo(itemMap.get(itemNumber).getPrice()) < 0) {
 			System.out.println("You don't have enough money for that!");
 		} else {
 			System.out.println("You have purchased: " + itemMap.get(itemNumber).getItemName());

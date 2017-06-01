@@ -10,9 +10,10 @@ import java.time.format.DateTimeFormatter;
 
 public class Log {
 
-	public LocalDateTime ldt = LocalDateTime.now();
+
 
 	public void printActionLog(String message, BigDecimal previousBalance, BigDecimal currentBalance) { 
+		LocalDateTime ldt = LocalDateTime.now();
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
 		try(FileWriter fw = new FileWriter("log.txt", true);
 			    BufferedWriter bw = new BufferedWriter(fw);
